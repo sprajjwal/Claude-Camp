@@ -81,7 +81,7 @@ Update this list whenever a lesson is added or verified. Folder names are `lesso
 - [x] 1. First run (`01-first-run`)
 - [~] 2. Models (`02-models`): prompts not run live; effort-level wording unverified against the docs
 - [~] 3. Built-in tools (`03-built-in-tools`): prompts not run live; WebFetch permission wording unverified
-- [ ] 4. Permission modes
+- [~] 4. Permission modes (`04-permission-modes`): prompts not run live; plan-mode approval wording unverified
 - [ ] 5. Plan mode in practice
 - [ ] 6. Context: `/context`, `/compact`, `/clear`, `@file`
 - [ ] 7. CLAUDE.md and memory
