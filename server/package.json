@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"no server tests yet\""
+    "test": "vitest run"
   },
   "dependencies": {
     "express": "^5.3.0",
