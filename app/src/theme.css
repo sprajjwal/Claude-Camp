@@ -1,31 +1,31 @@
 /* Material Design 3 tokens. Components must use these variables only. */
 :root,
 [data-theme="light"] {
-  --md-sys-color-primary: #262622;
+  --md-sys-color-primary: #262626;
   --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #edece8;
-  --md-sys-color-on-primary-container: #262622;
-  --md-sys-color-secondary: #6d6b67;
+  --md-sys-color-primary-container: #dcdcda;
+  --md-sys-color-on-primary-container: #262626;
+  --md-sys-color-secondary: #6b6b69;
   --md-sys-color-on-secondary: #ffffff;
-  --md-sys-color-secondary-container: #e1e0d9;
-  --md-sys-color-on-secondary-container: #262622;
+  --md-sys-color-secondary-container: #d0d0cd;
+  --md-sys-color-on-secondary-container: #262626;
   --md-sys-color-tertiary: #b4532f;
   --md-sys-color-on-tertiary: #ffffff;
-  --md-sys-color-tertiary-container: #f6dfd5;
+  --md-sys-color-tertiary-container: #ecd9cf;
   --md-sys-color-on-tertiary-container: #4a1f0f;
   --md-sys-color-error: #b3261e;
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-success: #1b6b3a;
   --md-sys-color-on-success: #ffffff;
-  --md-sys-color-surface: #fcfcfb;
-  --md-sys-color-on-surface: #191919;
-  --md-sys-color-surface-variant: #edece8;
-  --md-sys-color-on-surface-variant: #5f5d59;
-  --md-sys-color-surface-container: #ffffff;
-  --md-sys-color-surface-container-high: #f6f5f2;
-  --md-sys-color-outline: #a5a49a;
-  --md-sys-color-outline-variant: #e1e0d9;
-  --md-sys-color-surface-container-low: #fcfcfb;
+  --md-sys-color-surface: #ebebea;
+  --md-sys-color-on-surface: #1c1c1c;
+  --md-sys-color-surface-variant: #dcdcda;
+  --md-sys-color-on-surface-variant: #545453;
+  --md-sys-color-surface-container: #f3f3f2;
+  --md-sys-color-surface-container-high: #e1e1df;
+  --md-sys-color-outline: #8f8f8c;
+  --md-sys-color-outline-variant: #cfcfcc;
+  --md-sys-color-surface-container-low: #ebebea;
   --md-sys-color-scrim-shadow: rgb(0 0 0 / 0.06);
   --md-sys-color-clay: #d97757;
   --md-sys-state-hover: 0.08;

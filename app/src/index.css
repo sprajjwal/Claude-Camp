@@ -17,3 +17,12 @@ button { font: var(--md-sys-typescale-label-large); cursor: pointer; color: inhe
 .btn.text { color: var(--md-sys-color-primary); padding: 0 var(--md-sys-space-3); }
 .icon-button { width: var(--md-sys-target-size); height: var(--md-sys-target-size); border-radius: var(--md-sys-shape-corner-full); display: grid; place-items: center; font-size: 1.4rem; position: relative; color: var(--md-sys-color-on-surface-variant); }
 .icon-button::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; pointer-events: none; }
+
+.theme-switch { position: relative; display: flex; align-items: center; justify-content: space-between; width: 4.5rem; height: 2.25rem; padding: 0 0.2rem; border-radius: var(--md-sys-shape-corner-full); border: 1px solid var(--md-sys-color-outline); background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); cursor: pointer; transition: background var(--md-sys-motion-duration); }
+.theme-switch-icon { position: relative; z-index: 1; font-size: 1rem; line-height: 1; width: 1.75rem; text-align: center; }
+.theme-switch-thumb { position: absolute; top: 50%; left: 0.2rem; width: 1.75rem; height: 1.75rem; margin-top: -0.875rem; border-radius: var(--md-sys-shape-corner-full); background: var(--md-sys-color-primary); transition: left calc(var(--md-sys-motion-duration) * 1.5) cubic-bezier(0.3, 1.4, 0.5, 1); }
+.theme-switch[aria-pressed="true"] .theme-switch-thumb { left: calc(100% - 1.95rem); }
+.theme-switch .sun { color: var(--md-sys-color-on-primary); }
+.theme-switch[aria-pressed="true"] .sun { color: var(--md-sys-color-on-secondary-container); }
+.theme-switch[aria-pressed="true"] .moon { color: var(--md-sys-color-on-primary); }
+.theme-switch:hover .theme-switch-thumb { filter: brightness(1.15); }

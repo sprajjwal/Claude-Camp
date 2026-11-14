@@ -5,12 +5,14 @@ export function ThemeToggle({ theme, onToggle }: { theme: Theme; onToggle: () =>
   return (
     <button
       type="button"
-      className="icon-button"
+      className="theme-switch"
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       aria-pressed={dark}
       onClick={onToggle}
     >
-      <span aria-hidden="true">{dark ? "☀" : "☾"}</span>
+      <span className="theme-switch-icon sun" aria-hidden="true">☀</span>
+      <span className="theme-switch-icon moon" aria-hidden="true">☾</span>
+      <span className="theme-switch-thumb" aria-hidden="true" />
     </button>
   );
 }

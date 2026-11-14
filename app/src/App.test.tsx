@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 import { mockMatchMedia } from "./test/helpers";
 
@@ -61,6 +62,46 @@ describe("App", () => {
     expect(screen.getByRole("button", { name: /Second step/ })).not.toHaveAttribute("aria-current");
     expect(await screen.findByText("Body of 01-first-run")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1, name: "Claude Camp" })).toBeInTheDocument();
+  });
+
+  it("groups lessons in the sidebar by track with per-track progress", async () => {
+    const multi = [
+      ...lessons,
+      { id: "08-settings", title: "Settings files", track: "Customization", summary: "s8" },
+    ];
+    vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
+      const json = (data: unknown) => ({ ok: true, status: 200, statusText: "OK", json: async () => data });
+      if (url === "/api/lessons") return json(multi);
+      if (url === "/api/progress" && !init?.method) return json({ completed: ["01-first-run"] });
+      const m = /^\/api\/lessons\/([^/]+)$/.exec(url);
+      if (m) return json({ ...multi.find((l) => l.id === m[1])!, prompts: [], body: "b" });
+      return json({});
+    }));
+    render(<App />);
+    const basics = await screen.findByRole("region", { name: /Basics/ });
+    expect(basics).toHaveTextContent("1/2");
+    expect(within(basics).getByRole("button", { name: /Second step/ })).toBeInTheDocument();
+    const custom = screen.getByRole("region", { name: /Customization/ });
+    expect(custom).toHaveTextContent("0/1");
+    expect(within(custom).getByRole("button", { name: /Settings files/ })).toBeInTheDocument();
+    expect(within(basics).queryByRole("button", { name: /Settings files/ })).not.toBeInTheDocument();
+  });
+
+  it("collapses the lesson nav, remembers it, and keeps lesson names as tooltips", async () => {
+    localStorage.removeItem("nav-collapsed");
+    mockFetch();
+    const user = userEvent.setup();
+    render(<App />);
+    const toggle = await screen.findByRole("button", { name: "Collapse lesson list" });
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await user.click(toggle);
+    const pin = screen.getByRole("button", { name: "Pin lesson list open" });
+    expect(pin).toHaveAttribute("aria-expanded", "false");
+    expect(localStorage.getItem("nav-collapsed")).toBe("1");
+    expect(screen.getByRole("button", { name: /Second step/ })).toHaveAttribute("title", "Second step");
+    await user.click(pin);
+    expect(screen.getByRole("button", { name: "Collapse lesson list" })).toBeInTheDocument();
+    expect(localStorage.getItem("nav-collapsed")).toBe("0");
   });
 
   it("resumes at the first unfinished lesson", async () => {

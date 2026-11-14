@@ -4,18 +4,21 @@
 .brand-mark { width: 2.5rem; height: 2.5rem; border-radius: var(--md-sys-shape-corner-medium); display: grid; place-items: center; background: var(--md-sys-color-clay); color: var(--md-sys-color-on-primary); font: var(--md-sys-typescale-title-large); }
 .top-app-bar h1 { font: var(--md-sys-typescale-title-large); font-weight: 500; margin: 0; }
 .tagline { margin: 0; font: var(--md-sys-typescale-body-medium); color: var(--md-sys-color-on-surface-variant); }
-.layout { display: grid; grid-template-columns: 280px minmax(0, 1fr) 360px; gap: var(--md-sys-space-4); flex: 1; min-height: 0; padding: 0 var(--md-sys-space-4) var(--md-sys-space-4); }
+.layout { display: grid; grid-template-columns: var(--nav-width) minmax(0, 1fr) 360px; --nav-width: 280px; transition: grid-template-columns calc(var(--md-sys-motion-duration) * 1.5); gap: var(--md-sys-space-4); flex: 1; min-height: 0; padding: 0 var(--md-sys-space-4) var(--md-sys-space-4); }
+.layout[data-nav="collapsed"] { --nav-width: 4.5rem; }
+.sidebar-slot { position: relative; min-height: 0; }
 .sidebar, .side-feed, .lesson { overflow-y: auto; border-radius: var(--md-sys-shape-corner-large); border: 1px solid var(--md-sys-color-outline-variant); }
-.sidebar { padding: var(--md-sys-space-4) var(--md-sys-space-3); background: var(--md-sys-color-surface-container); }
+.sidebar { position: absolute; inset: 0 auto 0 0; width: 100%; z-index: 2; padding: var(--md-sys-space-4) var(--md-sys-space-3); background: var(--md-sys-color-surface-container); }
 .side-feed { padding: var(--md-sys-space-4); background: var(--md-sys-color-surface-container-low); }
 .progress { margin: 0 var(--md-sys-space-3) var(--md-sys-space-4); font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); }
 .progress-track { height: var(--md-sys-space-2); margin-top: var(--md-sys-space-2); border-radius: var(--md-sys-shape-corner-full); background: var(--md-sys-color-surface-variant); overflow: hidden; }
 .progress-fill { height: 100%; border-radius: inherit; background: var(--md-sys-color-clay); transition: width var(--md-sys-motion-duration); }
-.nav-item { display: flex; gap: var(--md-sys-space-3); align-items: center; width: 100%; min-height: 56px; padding: var(--md-sys-space-2) var(--md-sys-space-4) var(--md-sys-space-2) var(--md-sys-space-3); text-align: left; border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-space-1); color: var(--md-sys-color-on-surface-variant); transition: background var(--md-sys-motion-duration); }
+.nav-item { display: flex; gap: var(--md-sys-space-3); align-items: center; width: 100%; min-height: 2.5rem; padding: var(--md-sys-space-1) var(--md-sys-space-4) var(--md-sys-space-1) var(--md-sys-space-3); text-align: left; border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-space-1); color: var(--md-sys-color-on-surface-variant); transition: background var(--md-sys-motion-duration); }
 .nav-item:hover { background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent); }
 .nav-item.active { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); box-shadow: inset 3px 0 0 var(--md-sys-color-clay); }
-.nav-item small { display: block; font: var(--md-sys-typescale-label-small); opacity: 0.8; }
-.check { flex: none; width: 2rem; height: 2rem; border-radius: var(--md-sys-shape-corner-full); display: grid; place-items: center; font: var(--md-sys-typescale-label-large); background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); }
+.nav-group + .nav-group { margin-top: var(--md-sys-space-4); }
+.nav-group-title { display: flex; justify-content: space-between; margin: 0 var(--md-sys-space-3) var(--md-sys-space-2); font: var(--md-sys-typescale-label-large); text-transform: uppercase; letter-spacing: 0.06em; color: var(--md-sys-color-on-surface-variant); }
+.check { flex: none; width: 1.5rem; height: 1.5rem; border-radius: var(--md-sys-shape-corner-full); display: grid; place-items: center; font: var(--md-sys-typescale-label-small); background: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); }
 .nav-item.active .check { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
 .check.done { background: var(--md-sys-color-success); color: var(--md-sys-color-on-success); }
 .lesson { padding: var(--md-sys-space-8) clamp(var(--md-sys-space-6), 4vw, calc(var(--md-sys-space-8) * 2)); background: var(--md-sys-color-surface-container-low); }
@@ -26,6 +29,7 @@
 .lesson h3 { font: var(--md-sys-typescale-title-medium); margin-top: var(--md-sys-space-6); }
 .lesson p, .lesson li { line-height: 1.7; }
 .prompt-box { display: flex; gap: var(--md-sys-space-3); align-items: center; justify-content: space-between; padding: var(--md-sys-space-3) var(--md-sys-space-4); margin-bottom: var(--md-sys-space-3); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+.lesson :not(pre, .prompt-box) > code { padding: 0.1em 0.4em; border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-small); background: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface); font-weight: 500; }
 .prompt-box code { white-space: pre-wrap; }
 .actions { display: flex; flex-wrap: wrap; gap: var(--md-sys-space-3); margin: var(--md-sys-space-8) 0 var(--md-sys-space-4); }
 .results { list-style: none; padding: var(--md-sys-space-4); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-surface-container); }
@@ -53,3 +57,34 @@
   .layout { grid-template-columns: 1fr; }
   .tagline { display: none; }
 }
+
+.nav-toggle { display: grid; border-radius: 0; border-top: 1px solid var(--md-sys-color-outline-variant); place-items: center; width: calc(100% + 2 * var(--md-sys-space-3)); min-height: 2.5rem; margin: auto calc(-1 * var(--md-sys-space-3)) calc(-1 * var(--md-sys-space-4)); position: sticky; bottom: calc(-1 * var(--md-sys-space-4)); background: var(--md-sys-color-surface-container); font-size: 1.25rem; color: var(--md-sys-color-on-surface-variant); }
+.nav-toggle:hover { background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, var(--md-sys-color-surface-container)); }
+/* collapsed rail: icons only; hover or keyboard focus (.open) slides it open over the lesson, but never when the pointer is on the toggle */
+.sidebar-slot.collapsed .sidebar { width: 100%; overflow-x: hidden; transition: width calc(var(--md-sys-motion-duration) * 1.5); }
+.sidebar-slot.collapsed.open .sidebar { width: 280px; overflow-y: auto; border-color: var(--md-sys-color-outline); }
+.progress, .nav-group-title { white-space: nowrap; }
+.progress { position: relative; min-height: 2.5rem; }
+.progress-wheel { display: none; }
+/* hidden but still taking up space, so lessons don't jump down when the rail opens */
+.sidebar-slot.collapsed:not(.open) :is(.progress-text, .progress-track, .nav-group-title) { visibility: hidden; overflow: hidden; }
+.sidebar-slot.collapsed:not(.open) .progress-wheel { position: absolute; inset: 0 0 auto 0; display: flex; justify-content: center; }
+.wheel { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--md-sys-shape-corner-full); background: conic-gradient(var(--md-sys-color-clay) calc(var(--pct) * 1%), var(--md-sys-color-surface-variant) 0); }
+.wheel > span { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: inherit; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface); font: var(--md-sys-typescale-label-small); }
+.sidebar-slot.collapsed:not(.open) .nav-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.sidebar-slot.collapsed:not(.open) .nav-item { padding-left: var(--md-sys-space-2); }
+/* one line per lesson, so the rail's width animation can't make the buttons wrap and change height */
+.nav-label { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* collapsed rail: a hairline marks where one category ends and the next begins, in the space the heading reserves */
+.nav-group-title { position: relative; }
+.sidebar-slot.collapsed:not(.open) .nav-group + .nav-group .nav-group-title::before { content: ""; visibility: visible; position: absolute; top: 50%; left: 0; right: 0; border-top: 1px solid var(--md-sys-color-outline); }
+.sidebar { display: flex; flex-direction: column; }
+.sidebar > * { flex: none; }
+
+.nav-toggle-chevron { transform-box: fill-box; transform-origin: center; transition: transform calc(var(--md-sys-motion-duration) * 1.5); }
+.sidebar-slot.collapsed .nav-toggle-chevron { transform: rotate(180deg); }
+.nav-toggle:hover { color: var(--md-sys-color-on-surface); }
+/* never scroll sideways: while the rail animates open, its nowrap content is briefly wider than it */
+.sidebar { overflow-x: hidden; }
+/* same left offset in every state, so the icon stays put while the rail grows or shrinks around it */
+.nav-toggle { justify-items: start; padding-left: calc(2 * var(--md-sys-space-3)); }
