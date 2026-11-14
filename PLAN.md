@@ -80,7 +80,7 @@ Update this list whenever a lesson is added or verified. Folder names are `lesso
 **Track 1: Basics**
 - [x] 1. First run (`01-first-run`)
 - [~] 2. Models (`02-models`): prompts not run live; effort-level wording unverified against the docs
-- [ ] 3. Built-in tools
+- [~] 3. Built-in tools (`03-built-in-tools`): prompts not run live; WebFetch permission wording unverified
 - [ ] 4. Permission modes
 - [ ] 5. Plan mode in practice
 - [ ] 6. Context: `/context`, `/compact`, `/clear`, `@file`
