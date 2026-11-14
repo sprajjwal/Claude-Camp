@@ -12,6 +12,7 @@ npm run dev             # server :4000, app :5173 (~10s to start on /mnt/c)
 npm test                # server + app Vitest/RTL suites
 npm run typecheck
 npm run build
+npm run lint -w app     # oxlint
 cd sandbox && claude -p "<prompt>"   # exercise the hooks pipeline headlessly
 ```
 
@@ -26,6 +27,9 @@ cd sandbox && claude -p "<prompt>"   # exercise the hooks pipeline headlessly
 - Do not run tests, typecheck or the test-engineer after a change unless asked. Use `/run-tests`.
 - Verify Claude Code details (commands, hook events, model IDs) against the official docs before
   writing a lesson, and run its prompts live before calling it done.
+- In lessons, put each prompt inline in its step with a ```prompt fence holding the prompt's number
+  in the frontmatter `prompts` list; do not rely on a separate prompts section. Put fallback answers
+  in a ```spoiler fence.
 
 ## Code style
 - Use theme tokens for all colors, type, spacing and shape; no hard-coded values in component CSS.
