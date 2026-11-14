@@ -54,7 +54,11 @@ cd sandbox && claude -p "<prompt>"   # exercise the hooks pipeline headlessly
 - Browser console errors are forwarded to the `npm run dev` log; grep it before guessing at a blank page.
 - A `useEffect` callback must not return anything but a cleanup function (this blanked the whole app).
 - Project hooks run only after the folder-trust prompt is accepted; headless `-p` skips it.
+- On macOS, Linux and WSL, Claude searches through Bash, not the Grep/Glob tools; the feed shows Bash
+  rows. Do not write lesson checks that require Grep, Glob or WebFetch.
 - Versions are recent (Vite 8, TypeScript 7, Express 5); older tutorials may not match.
 
 ## Project skills and agents
 Manual only: `/commit-push`, `/run-tests` (test-engineer sub-agent), `/update-claude-md`.
+Agent `ux-designer` (read-only): give it a lesson type and topic before writing a lesson; it returns a
+design brief. Verify its tool and command claims against the docs.
