@@ -73,6 +73,40 @@ Lessons are written in markdown with frontmatter (`title`, `level`, `prompts[]`)
 21. Prompt caching, extended thinking, streaming
 22. Agent SDK: building a tiny agent
 
+## Lesson status
+Legend: `[x]` done (written and its prompts run live) · `[~]` written, not yet verified live · `[ ]` not started.
+Update this list whenever a lesson is added or verified. Folder names are `lessons/<NN-name>/`.
+
+**Track 1: Basics**
+- [x] 1. First run (`01-first-run`)
+- [~] 2. Models (`02-models`): prompts not run live; effort-level wording unverified against the docs
+- [ ] 3. Built-in tools
+- [ ] 4. Permission modes
+- [ ] 5. Plan mode in practice
+- [ ] 6. Context: `/context`, `/compact`, `/clear`, `@file`
+- [ ] 7. CLAUDE.md and memory
+
+**Track 2: Customization**
+- [ ] 8. Settings files
+- [ ] 9. Custom slash commands
+- [ ] 10. Skills
+- [ ] 11. Output styles and the status line
+- [ ] 12. Subagents
+
+**Track 3: Automation and integration**
+- [ ] 13. Hooks in depth
+- [ ] 14. MCP servers
+- [ ] 15. Build your own MCP server
+- [ ] 16. Plugins
+- [ ] 17. Headless mode
+- [ ] 18. Git workflows
+
+**Track 4: Claude API (optional, needs an API key)**
+- [ ] 19. Messages API basics and choosing a model
+- [ ] 20. Tool use from your own code
+- [ ] 21. Prompt caching, extended thinking, streaming
+- [ ] 22. Agent SDK: building a tiny agent
+
 Before writing each lesson, I'll check its details (command names, hook event names, model IDs) against the official docs at code.claude.com/docs and docs.claude.com, so the content is accurate and current.
 
 ## Build order (once approved)
