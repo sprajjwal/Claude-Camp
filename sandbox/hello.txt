@@ -1,0 +1,1 @@
+Hello from the sandbox! Claude can read this file.

@@ -1,0 +1,104 @@
+/* Material Design 3 tokens. Components must use these variables only. */
+:root,
+[data-theme="light"] {
+  --md-sys-color-primary: #262622;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #edece8;
+  --md-sys-color-on-primary-container: #262622;
+  --md-sys-color-secondary: #6d6b67;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #e1e0d9;
+  --md-sys-color-on-secondary-container: #262622;
+  --md-sys-color-tertiary: #b4532f;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #f6dfd5;
+  --md-sys-color-on-tertiary-container: #4a1f0f;
+  --md-sys-color-error: #b3261e;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-success: #1b6b3a;
+  --md-sys-color-on-success: #ffffff;
+  --md-sys-color-surface: #fcfcfb;
+  --md-sys-color-on-surface: #191919;
+  --md-sys-color-surface-variant: #edece8;
+  --md-sys-color-on-surface-variant: #5f5d59;
+  --md-sys-color-surface-container: #ffffff;
+  --md-sys-color-surface-container-high: #f6f5f2;
+  --md-sys-color-outline: #a5a49a;
+  --md-sys-color-outline-variant: #e1e0d9;
+  --md-sys-color-surface-container-low: #fcfcfb;
+  --md-sys-color-scrim-shadow: rgb(0 0 0 / 0.06);
+  --md-sys-color-clay: #d97757;
+  --md-sys-state-hover: 0.08;
+  --md-sys-state-pressed: 0.12;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --md-sys-color-primary: #edece8;
+  --md-sys-color-on-primary: #191919;
+  --md-sys-color-primary-container: #2c2c2a;
+  --md-sys-color-on-primary-container: #edece8;
+  --md-sys-color-secondary: #a5a49a;
+  --md-sys-color-on-secondary: #191919;
+  --md-sys-color-secondary-container: #383835;
+  --md-sys-color-on-secondary-container: #edece8;
+  --md-sys-color-tertiary: #e8967a;
+  --md-sys-color-on-tertiary: #3a1a0e;
+  --md-sys-color-tertiary-container: #4a2a1d;
+  --md-sys-color-on-tertiary-container: #f6dfd5;
+  --md-sys-color-error: #f2b8b5;
+  --md-sys-color-on-error: #601410;
+  --md-sys-color-success: #8bd9a0;
+  --md-sys-color-on-success: #003918;
+  --md-sys-color-surface: #191919;
+  --md-sys-color-on-surface: #f4f3ee;
+  --md-sys-color-surface-variant: #2c2c2a;
+  --md-sys-color-on-surface-variant: #c3c2b7;
+  --md-sys-color-surface-container: #1f1f1f;
+  --md-sys-color-surface-container-high: #2c2c2a;
+  --md-sys-color-outline: #6d6b67;
+  --md-sys-color-outline-variant: #383835;
+  --md-sys-color-surface-container-low: #151515;
+  --md-sys-color-scrim-shadow: rgb(0 0 0 / 0.4);
+  --md-sys-color-clay: #d97757;
+  color-scheme: dark;
+}
+
+:root {
+  --md-sys-typescale-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --md-sys-typescale-serif: ui-serif, Georgia, "Times New Roman", serif;
+  --md-sys-typescale-mono: ui-monospace, Menlo, Consolas, monospace;
+  --md-sys-typescale-headline-medium: 400 2rem/2.5rem var(--md-sys-typescale-serif);
+  --md-sys-typescale-headline-small: 400 1.5rem/2rem var(--md-sys-typescale-serif);
+  --md-sys-typescale-title-large: 400 1.375rem/1.75rem var(--md-sys-typescale-serif);
+  --md-sys-typescale-title-medium: 500 1rem/1.5rem var(--md-sys-typescale-font);
+  --md-sys-typescale-body-large: 400 1rem/1.5rem var(--md-sys-typescale-font);
+  --md-sys-typescale-body-medium: 400 0.875rem/1.25rem var(--md-sys-typescale-font);
+  --md-sys-typescale-label-large: 500 0.875rem/1.25rem var(--md-sys-typescale-font);
+  --md-sys-typescale-label-small: 500 0.6875rem/1rem var(--md-sys-typescale-font);
+
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-full: 999px;
+
+  --md-sys-space-1: 4px;
+  --md-sys-space-2: 8px;
+  --md-sys-space-3: 12px;
+  --md-sys-space-4: 16px;
+  --md-sys-space-6: 24px;
+  --md-sys-space-8: 32px;
+  --md-sys-elevation-card: 0 1px 2px var(--md-sys-color-scrim-shadow);
+  --md-sys-target-size: 48px;
+  --md-sys-top-bar-height: 72px;
+  --md-sys-motion-duration: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --md-sys-motion-duration: 0ms; }
+}
+
+/* Tonal elevation: higher surfaces get a primary tint instead of a heavy shadow. */
+.elevation-1 { background: var(--md-sys-color-surface-container); }
+.elevation-2 { background: var(--md-sys-color-surface-container-high); }
