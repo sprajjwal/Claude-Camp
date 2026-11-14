@@ -34,10 +34,22 @@ gets stuck.
 
 In your Claude terminal (still in `sandbox`):
 
-1. Send the first prompt and note how quickly the answer arrives.
-2. Run `/model`. A picker lists the models available to you. Choose a different one
-   with the arrow keys and Enter.
-3. Send the third prompt. Compare speed and depth with the first model's style.
+1. Send this prompt and note how quickly the answer arrives:
+
+   ```prompt
+   1
+   ```
+2. Open the model picker. It lists the models available to you. Choose a different one
+   with the arrow keys and Enter:
+
+   ```prompt
+   2
+   ```
+3. Send this prompt. Compare speed and depth with the first model's style:
+
+   ```prompt
+   3
+   ```
 
 You can also pick a model when starting Claude:
 

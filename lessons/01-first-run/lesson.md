@@ -33,7 +33,16 @@ start a new one with `/clear` or exit.
    ```
 2. The first time, Claude asks whether you trust this folder. Say yes. This is also what
    allows the hooks in `sandbox/.claude/settings.json` to run.
-3. Paste the prompts below, one at a time.
+3. Send this prompt:
+
+   ```prompt
+   1
+   ```
+4. Then send this one:
+
+   ```prompt
+   2
+   ```
 
 ## What to notice
 

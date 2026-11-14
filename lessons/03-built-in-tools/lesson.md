@@ -49,14 +49,43 @@ in the feed as one row, tagged with the tool's name.
    cd sandbox
    claude
    ```
-2. Paste the prompts above one at a time, in order.
-3. After each one, find its row in the feed. You never name a tool. Claude picks it.
+2. Send each prompt in order. After each one, find its row in the feed. You never name a
+   tool. Claude picks it.
+   - Read a file:
+
+     ```prompt
+     1
+     ```
+   - Search files:
+
+     ```prompt
+     2
+     ```
+   - Create a file:
+
+     ```prompt
+     3
+     ```
+   - Change that file:
+
+     ```prompt
+     4
+     ```
+   - Run a command:
+
+     ```prompt
+     5
+     ```
+   - Optional, needs network access and may ask for permission:
+
+     ```prompt
+     6
+     ```
 
 Approve a permission prompt when one appears. Reading is allowed without asking, but
 creating or editing a file, or running most commands, asks first. A tool you deny never
 reaches the feed, because the feed is driven by hooks that fire after a tool finishes.
 
-The last prompt is optional. It needs network access and may ask for permission.
 **Check my work** only needs the first five.
 
 ## What to notice
