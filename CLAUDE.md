@@ -34,13 +34,19 @@ an optional `label`. Checks only give feedback and never gate the Next button. A
 folder, with no code changes.
 
 ## Conventions
-- Prompts always run in the user's real terminal; the app never runs Claude itself.
 - Verify Claude Code details (commands, hook event names, model IDs) against the official docs before
   writing a lesson, and run each lesson's prompts live before calling it done.
 - Keep it portable: the user also works on a Mac. No absolute paths in hooks or server code, LF line
   endings (`.gitattributes`), only `curl` for hooks.
 - The user keeps all projects in one `PROJECTS` folder on the Windows C: drive (under `/mnt/c/...` in WSL).
-- Don't commit unless asked. Git is initialised and nothing is committed yet.
+- Don't commit or push unless asked. Use `/commit-push` (see below) for that. Remote: `origin` = `git@github.com:sprajjwal/Claude-Camp.git`, branch `main`
+  (first commit pushed; the remote's initial commit holds only a LICENSE). Never force-push.
+- The project is named **Claude Camp** (tagline "Learn Claude Code, one small step at a time"). The folder and
+  npm package are still `learn-claude`.
+- Don't run tests, typecheck-as-verification or the test-engineer after a change unless the user asks
+  (`/run-tests`). The user has asked for this explicitly more than once.
+- The app never runs Claude itself (browser terminal and headless runner were tried and rejected). Don't
+  re-propose them. `node-pty` also can't build here: WSL has no gcc/make.
 
 ## Gotchas
 - `/mnt/c` needs `[automount] options="metadata"` in `/etc/wsl.conf` (already applied), or npm fails
@@ -70,17 +76,23 @@ folder, with no code changes.
 - Every UI feature needs a test for both light and dark theme where the theme affects behaviour.
 
 ## Design system
-Google Material Design 3 (Material You), implemented in `app/` with no heavy UI framework
-required. Prefer `@material/web` components or MUI if a component library is wanted; otherwise
-build small components that follow the M3 spec.
+Visual identity follows **Claude's own Academy site (academy.claude.com)**: the user rejected a purple
+M3 palette and a terracotta one. The structure stays Material Design 3 (token names, roles, components),
+but the values are Academy's, taken from its stylesheet: warm neutral grays (page `#fcfcfb`, cards white
+or `#f6f5f2`, hairline borders `#e1e0d9`), near-black primary `#262622`, text `#191919`, clay accent
+`#d97757` used sparingly (`--md-sys-color-clay`: logo mark, progress bar, active-lesson edge; it fails
+AA as text on white, so never use it for text). Dark: `#191919` page, `#1f1f1f` cards, light warm text.
+Serif headings (`--md-sys-typescale-serif`, system serif; Academy's Anthropic fonts are proprietary),
+sans body. Small radii (cards 16px, buttons 8px, not pills), flat hairline-bordered panels, no shadows.
+Don't change the palette or look again without being asked.
 - **Tokens first.** All colors, type, spacing, shape and elevation live as CSS custom properties
   in `app/src/theme.css` (`--md-sys-color-primary`, `--md-sys-color-surface`,
   `--md-sys-color-on-surface`, `--md-sys-typescale-*`, `--md-sys-shape-corner-*`, etc.).
   Components use tokens only: no hard-coded hex values or px sizes in component CSS.
 - **Color roles.** primary / secondary / tertiary / error, each with `on-` and `-container`
-  variants, plus surface, surface-variant, outline. One seed color generates both schemes.
-- **Typography.** Roboto (or system fallback); M3 type scale (display, headline, title, body, label).
-- **Shape and elevation.** M3 corner scale; tonal elevation (surface tint) over heavy shadows.
+  variants, plus surface, surface-variant, outline. Values come from Academy, not a generated seed.
+- **Typography.** System fonts (serif headings, sans body); M3 type scale (display, headline, title, body, label).
+- **Shape and elevation.** M3 corner scale with Academy's tighter radii; flat panels with borders.
 - **Components.** Buttons (filled, tonal, outlined, text), cards, navigation drawer for the lesson
   list, top app bar, chips for tracks, list items for the feed. Keep them in `app/src/components/`.
 - **Accessibility.** WCAG AA contrast in both themes, visible focus rings, 48px touch targets,
@@ -102,6 +114,19 @@ run tests, after finishing a feature unless the user asks. The user triggers it 
 It writes and runs React Testing Library tests plus typecheck and build, never edits source, and returns
 `RESULT: PASS|FAIL` with a FIXES NEEDED list. On FAIL, show the list and ask before applying fixes.
 Restart Claude Code or run `/agents` to pick up the file.
+
+## Commit and push skill
+`.claude/skills/commit-push/SKILL.md`, user-invoked only: `/commit-push [message hint]`. Invoking it counts
+as permission to commit and push. Flow: inspect the diff, gate on test coverage, commit, then push or stop.
+- **Gate:** every changed file under `app/src`, `server/src`, lesson structure or sandbox hooks needs a test
+  that exercises it, added or updated in the same change (or an existing one that still matches), and
+  `npm test` must pass. Docs, config, lockfiles and assets are exempt.
+- **Gate passed:** push (never force). **Gate failed:** commit locally, do not push, list what is uncovered,
+  and ask whether to run the test-engineer; after its PASS, commit the tests, re-check, then push.
+- **Commit messages:** Conventional Commits, `<type>(<scope>): <subject>` (feat, fix, refactor, test, style,
+  docs, perf, build, ci, chore, revert). Imperative, lowercase, no period, 72 chars max; `!` plus a
+  `BREAKING CHANGE:` footer for removed behaviour; the Claude co-author trailer goes last.
+- Restart Claude Code to pick up a new skill.
 
 ## Lesson list
 Full detail in `PLAN.md`. Folder names are `lessons/<NN-name>/`. Lesson 1 is done (`01-first-run`).
@@ -137,14 +162,14 @@ Full detail in `PLAN.md`. Folder names are `lessons/<NN-name>/`. Lesson 1 is don
 22. Agent SDK: building a tiny agent
 
 ## Status
-Done: scaffold, server, hooks pipeline verified end to end (real `claude -p` run), lesson 1,
-Material 3 design system (`app/src/theme.css`, `theme.ts`, `components/ThemeToggle.tsx`,
-`components/TopAppBar.tsx`) with light/dark toggle, test-engineer sub-agent, Vitest + RTL setup
-(17 app tests passing, 4 files in `app/src/`).
-Not verified: the UI has never been viewed in a browser by Claude (user reported the earlier
-blank page; the fixes are in but the user has not yet confirmed the page renders).
+Done: scaffold, server, hooks pipeline verified end to end (real `claude -p` run), lesson 1, Academy-style
+M3 theme with light/dark toggle (`app/src/theme.css`, `theme.ts`, `components/ThemeToggle.tsx`,
+`components/TopAppBar.tsx`), rename to Claude Camp, lesson sidebar progress bar, track chip and summary
+on the lesson page, manual-only test-engineer + `/run-tests`, `/commit-push` skill with a test-coverage gate, Vitest + RTL (24 app tests passing across 5
+files, last run PASS with typecheck and build), first commit pushed to GitHub `main`.
+Not verified: the UI (including the Academy restyle) has never been viewed in a browser by Claude; the
+user has not confirmed it renders well.
 Gaps: no server unit tests (server `test` script is a placeholder echo); no test that validates
-every `lessons/*/lesson.md`; the test-engineer agent is only picked up after restarting Claude Code
-or `/agents` (until then, run it via a general-purpose agent told to follow its file).
+every `lessons/*/lesson.md`; lesson 1's prompts and results were not re-run live after the restyle.
 To do: transcript watcher (model name, token usage), lessons 2-22 per `PLAN.md` starting with the
-Basics track (test-engineer only when the user asks).
+Basics track.
