@@ -30,6 +30,10 @@
 .lesson p, .lesson li { line-height: 1.7; }
 .prompt-box { display: flex; gap: var(--md-sys-space-3); align-items: center; justify-content: space-between; padding: var(--md-sys-space-3) var(--md-sys-space-4); margin-bottom: var(--md-sys-space-3); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
 .lesson :not(pre, .prompt-box) > code { padding: 0.1em 0.4em; border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-small); background: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface); font-weight: 500; }
+.spoiler { margin: var(--md-sys-space-3) 0; padding: var(--md-sys-space-3) var(--md-sys-space-4); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-surface-container); }
+.spoiler summary { cursor: pointer; font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); }
+.spoiler[open] summary { margin-bottom: var(--md-sys-space-2); }
+.spoiler pre { margin: 0 0 var(--md-sys-space-2); background: var(--md-sys-color-surface-container-high); }
 .prompt-box code { white-space: pre-wrap; }
 .actions { display: flex; flex-wrap: wrap; gap: var(--md-sys-space-3); margin: var(--md-sys-space-8) 0 var(--md-sys-space-4); }
 .results { list-style: none; padding: var(--md-sys-space-4); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-surface-container); }

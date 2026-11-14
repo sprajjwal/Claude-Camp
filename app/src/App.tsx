@@ -1,8 +1,8 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
-import Markdown from "react-markdown";
 import { api } from "./api";
 import { Feed } from "./Feed";
+import { LessonMarkdown } from "./components/LessonMarkdown";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { TopAppBar } from "./components/TopAppBar";
 import { useTheme } from "./theme";
@@ -24,8 +24,18 @@ export default function App() {
   const [navCollapsed, setNavCollapsed] = useState(() => localStorage.getItem(NAV_KEY) === "1");
   const [peek, setPeek] = useState(false); // pointer over the rail, but not over its toggle button
   const [kbFocus, setKbFocus] = useState(false); // keyboard focus inside the rail
-  const startedAt = useRef(Date.now());
+  const startedAt = useRef(0); // set in selectLesson
   const { theme, toggle } = useTheme();
+
+  // switch lesson and reset the feed and checks (done here, not in an effect, to avoid a cascading render)
+  const selectLesson = (id: string | null) => {
+    if (id === currentId) return;
+    startedAt.current = Date.now();
+    setResults(null);
+    setEvents([]);
+    api.clearEvents();
+    setCurrentId(id);
+  };
 
   // initial load: lesson list + saved progress; resume at first unfinished lesson
   useEffect(() => {
@@ -33,6 +43,9 @@ export default function App() {
       .then(([ls, p]) => {
         setLessons(ls);
         setCompleted(p.completed);
+        // first load: state is already empty, so only start the clock and clear the server buffer
+        startedAt.current = Date.now();
+        api.clearEvents();
         setCurrentId(ls.find((l) => !p.completed.includes(l.id))?.id ?? ls[0]?.id ?? null);
       })
       .catch((e: Error) => setError(`Can't reach the server (${e.message}). Is \`npm run dev\` running?`));
@@ -47,13 +60,9 @@ export default function App() {
     return () => es.close();
   }, []);
 
-  // load lesson + reset feed/checks when it changes
+  // load the lesson body when the selection changes
   useEffect(() => {
     if (!currentId) return;
-    startedAt.current = Date.now();
-    setResults(null);
-    setEvents([]);
-    api.clearEvents();
     api.lesson(currentId).then(setLesson).catch((e: Error) => setError(e.message));
   }, [currentId]);
 
@@ -100,7 +109,7 @@ export default function App() {
     const updated = done ? completed : [...completed, currentId];
     setCompleted(updated);
     await api.saveProgress(updated);
-    if (next) setCurrentId(next.id);
+    if (next) selectLesson(next.id);
   };
 
   if (error) return <div className="error" role="alert">{error}</div>;
@@ -145,7 +154,7 @@ export default function App() {
                 className={`nav-item ${l.id === currentId ? "active" : ""}`}
                 aria-current={l.id === currentId ? "page" : undefined}
                 title={l.title}
-                onClick={() => setCurrentId(l.id)}
+                onClick={() => selectLesson(l.id)}
               >
                 <span className={`check ${completed.includes(l.id) ? "done" : ""}`}>{completed.includes(l.id) ? "✓" : lessons.indexOf(l) + 1}</span>
                 <span className="nav-label">{l.title}</span>
@@ -175,15 +184,19 @@ export default function App() {
             <span className="chip">{lesson.track}</span>
             <h2>{lesson.title}</h2>
             {lesson.summary && <p className="summary">{lesson.summary}</p>}
-            <Markdown>{lesson.body}</Markdown>
+            <LessonMarkdown prompts={lesson.prompts}>{lesson.body}</LessonMarkdown>
 
-            <h3>Your turn: try these in your terminal</h3>
-            {lesson.prompts.map((p) => (
-              <div className="prompt-box" key={p}>
-                <code>{p}</code>
-                <button className="btn text" onClick={() => navigator.clipboard.writeText(p)}>Copy</button>
-              </div>
-            ))}
+            {!/^\s*```prompt\b/m.test(lesson.body) && (
+              <>
+                <h3>Your turn: try these in your terminal</h3>
+                {lesson.prompts.map((p) => (
+                  <div className="prompt-box" key={p}>
+                    <code>{p}</code>
+                    <button className="btn text" onClick={() => navigator.clipboard.writeText(p)}>Copy</button>
+                  </div>
+                ))}
+              </>
+            )}
 
             <div className="actions">
               <button className="btn outlined" onClick={runCheck}>Check my work</button>
