@@ -28,7 +28,7 @@ Then run `npm test` (use `nvm use` first). Failing tests mean the gate fails.
 Do not run the build or typecheck as a substitute for tests.
 
 ## 3. Commit message (Conventional Commits)
-Format: `<type>(<scope>): <subject>`, blank line, optional body, optional footers, then the attribution
+Format: `<type>: <subject>` (no scope, never `type(scope):`), blank line, optional body, optional footers, then the attribution
 trailer from the session's system instructions if one is present. Use `$ARGUMENTS` as a hint if given.
 
 **Pick the type from the diff** (if the change mixes types, prefer the most user-visible one, or split
@@ -48,8 +48,7 @@ into separate commits with `git add -p`/by file when they are clearly independen
 | `chore` | minor housekeeping: `.gitignore`, formatting, renames, small cleanups, config tweaks |
 | `revert` | undoing an earlier commit; subject `revert: <original subject>`, body names the hash |
 
-**Scope** (optional, lowercase, one word): `app`, `server`, `lessons`, `theme`, `hooks`, `sandbox`,
-`agents`, `skills`, or a lesson id like `lesson-01`. Omit it when the change spans many areas.
+**No scope.** Use only the type and the message, even when the change touches one area.
 
 **Subject rules:** imperative mood ("add", not "added"), lowercase after the colon, no trailing period,
 72 characters or fewer, says *what* changed.
@@ -57,20 +56,20 @@ into separate commits with `git add -p`/by file when they are clearly independen
 **Body (when the why isn't obvious):** wrap at 72 columns; explain *why* and any trade-off, not a list
 of files. Skip it for small changes.
 
-**Footers:** `BREAKING CHANGE: <what breaks and how to migrate>` (and `!` after the type/scope) for
+**Footers:** `BREAKING CHANGE: <what breaks and how to migrate>` (and `!` right after the type) for
 anything that removes or changes behaviour users depend on, such as a lesson frontmatter field or an
 API route. `Refs: #123` / `Closes: #123` when an issue exists.
 
 **Examples**
-- `feat(lessons): add lesson 02 on choosing a model`
-- `fix(app): keep the Next button enabled after a failed check`
-- `style(theme): switch palette to Academy-inspired tokens`
-- `refactor(app): remove unused example-result component`
-- `test(app): cover sidebar progress in light and dark themes`
+- `feat: add lesson 02 on choosing a model`
+- `fix: keep the Next button enabled after a failed check`
+- `style: switch palette to Academy-inspired tokens`
+- `refactor: remove unused example-result component`
+- `test: cover sidebar progress in light and dark themes`
 - `docs: record the no-in-browser-runner decision in CLAUDE.md`
 - `chore: ignore sandbox local settings`
-- `build(app): add xterm dependency`
-- `feat(server)!: drop the examples frontmatter field`
+- `build: add xterm dependency`
+- `feat!: drop the examples frontmatter field`
 
 Stage the intended files by name (not blindly everything) and commit. Show the user the final message
 in the report.

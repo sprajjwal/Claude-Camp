@@ -123,7 +123,7 @@ as permission to commit and push. Flow: inspect the diff, gate on test coverage,
   `npm test` must pass. Docs, config, lockfiles and assets are exempt.
 - **Gate passed:** push (never force). **Gate failed:** commit locally, do not push, list what is uncovered,
   and ask whether to run the test-engineer; after its PASS, commit the tests, re-check, then push.
-- **Commit messages:** Conventional Commits, `<type>(<scope>): <subject>` (feat, fix, refactor, test, style,
+- **Commit messages:** Conventional Commits with no scope, `<type>: <subject>` (feat, fix, refactor, test, style,
   docs, perf, build, ci, chore, revert). Imperative, lowercase, no period, 72 chars max; `!` plus a
   `BREAKING CHANGE:` footer for removed behaviour; the Claude co-author trailer goes last.
 - Restart Claude Code to pick up a new skill.
