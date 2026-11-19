@@ -57,18 +57,22 @@ You can also pick a model when starting Claude:
 claude --model haiku
 ```
 
-Aliases like `haiku`, `sonnet` and `opus` point at the latest version of each model.
+Aliases like `haiku`, `sonnet`, `opus` and `fable` point at the latest version of each
+model on the Anthropic API. On Bedrock, Google Cloud or Foundry they may resolve to
+older versions.
 
 ## Effort
 
 Some models can think harder or less before answering. Claude Code calls this
 **effort level**. Low effort is quicker and cheaper; high effort suits difficult
-problems. Start a session with `claude --effort <level>`, or look for an effort
-option in the `/model` picker.
+problems. The levels are `low`, `medium`, `high`, `xhigh` and `max`, and not every
+model offers all of them. Start a session with `claude --effort <level>`, or use the
+effort slider in the `/model` picker (left and right arrow keys).
 
 ## What to notice
 
-- Changing the model with `/model` only affects the current session. Your earlier
-  conversation stays.
+- Choosing a model with `/model` keeps your earlier conversation, and it also saves
+  that model as your default for new sessions. In the picker, press `s` instead of
+  Enter to change the model for this session only.
 - The same prompt can produce noticeably different speed and depth on each model.
 - Switching down for simple tasks saves time and usage.
