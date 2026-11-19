@@ -51,6 +51,8 @@ cd sandbox && claude -p "<prompt>"   # exercise the hooks pipeline headlessly
 ## Do not
 - Run Claude inside the app (browser terminal and headless runner were rejected); do not re-propose them.
 - Use `node-pty`; it can't build here (no gcc/make).
+- Write platform-specific instructions (WSL, macOS, Windows) in docs, lessons or comments; target any
+  Linux-based environment.
 - Use markdown tables in lessons; the renderer has no GFM plugin. Use lists.
 - Run `pkill -f "tsx watch"`; the pattern matches the calling shell. Use `[t]sx watch`.
 
