@@ -3,7 +3,7 @@ import { api } from "../api";
 import { ResizeHandle } from "./ResizeHandle";
 import { lineDiff, withContext } from "../lineDiff";
 
-const POLL_MS = 1000; // polling, because file watching doesn't fire on /mnt/c
+const POLL_MS = 1000; // polling, because file watching may not fire on some filesystems
 
 type Tab = "changes" | "page" | "source";
 const TABS: { id: Tab; label: string }[] = [

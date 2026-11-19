@@ -18,7 +18,7 @@ cd sandbox && claude
 ```
 
 Claude Code hooks in `sandbox/.claude/settings.json` post each prompt, tool call and reply
-to the local server, which streams them to the browser. Needs `curl` (preinstalled on macOS and WSL).
+to the local server, which streams them to the browser. Needs `curl`.
 
 ## Layout
 
@@ -28,13 +28,3 @@ to the local server, which streams them to the browser. Needs `curl` (preinstall
 - `sandbox/` the folder you run `claude` in
 
 See `PLAN.md` for the curriculum.
-
-## WSL note
-
-If `npm install` fails with `EPERM ... chmod` on `/mnt/c`, add this to `/etc/wsl.conf` and run
-`wsl --shutdown`:
-
-```
-[automount]
-options = "metadata"
-```

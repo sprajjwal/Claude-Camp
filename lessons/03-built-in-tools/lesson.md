@@ -38,9 +38,8 @@ in the feed as one row, tagged with the tool's name.
 - **Write**: creates a new file, or replaces one.
 - **Edit**: changes part of an existing file.
 - **Bash**: runs a shell command such as `ls`, `grep` or `find`.
-- **Grep** and **Glob**: search file contents and find files by name. On macOS, Linux and
-  WSL, Claude usually does these searches through Bash instead. On Windows you may see
-  Grep and Glob rows.
+- **Grep** and **Glob**: search file contents and find files by name. Claude usually does
+  these searches through Bash instead, so you may not see Grep or Glob rows.
 - **WebFetch**: downloads a web page so Claude can read it.
 
 ## Try it

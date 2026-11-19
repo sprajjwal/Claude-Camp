@@ -3,7 +3,7 @@
 ## Context
 You want a hands-on way to learn Claude from scratch: simple things (models, permission modes) up to advanced ones (skills, tools, hooks, MCP servers). The app shows a short explanation for each lesson, asks you to run prompts in a real terminal with Claude Code, shows what happened in the browser, and has a **Next lesson** button for when you're ready. Nothing gets coded until this plan is approved.
 
-The project folder `/mnt/c/Users/mesha/PROJECTS/learn-claude` is empty. **Node.js is not installed in WSL** (`node -v` failed), so step 0 is to install it, for example with nvm and Node 22 LTS.
+The project folder is empty. Step 0 is to install Node.js, for example with nvm and Node 22 LTS.
 
 ## How the app works
 ```
