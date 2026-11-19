@@ -30,9 +30,14 @@ cd sandbox && claude -p "<prompt>"   # exercise the hooks pipeline headlessly
 - In lessons, put each prompt inline in its step with a ```prompt fence holding the prompt's number
   in the frontmatter `prompts` list; do not rely on a separate prompts section. Put fallback answers
   in a ```spoiler fence.
+- When a lesson creates or edits one file, set frontmatter `preview: <path in sandbox/>` to show it
+  in the Live view (Changes/Page/Source tabs), and name that file in the prompts. A seeded starter
+  file may live in `sandbox/` (tracked in git; reset it with `git checkout`).
 
 ## Code style
 - Use theme tokens for all colors, type, spacing and shape; no hard-coded values in component CSS.
+- Drag-to-resize UI uses `components/ResizeHandle.tsx` (a keyboard-operable `separator`); reuse it
+  rather than writing a new one. Persist sizes in `localStorage`.
 - Do not change the palette or overall look unless asked. Keep Claude's Academy look, Material Design 3
   structure and a neutral (not warm) light mode.
 - Keep the code portable (the user also works on a Mac): no absolute paths in hooks or server code,

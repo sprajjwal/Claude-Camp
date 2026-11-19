@@ -52,9 +52,42 @@
 .reply-text { white-space: pre-wrap; }
 .error { padding: var(--md-sys-space-8); color: var(--md-sys-color-error); }
 
+.preview { flex: none; margin-bottom: var(--md-sys-space-4); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); background: var(--md-sys-color-surface-container); overflow: hidden; }
+.preview-head { display: flex; align-items: center; gap: var(--md-sys-space-2); padding: var(--md-sys-space-2) var(--md-sys-space-3); font: var(--md-sys-typescale-title-medium); }
+.preview-head code { flex: 1; min-width: 0; font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); overflow-wrap: anywhere; }
+.preview-tabs { display: flex; flex-wrap: wrap; gap: var(--md-sys-space-1); padding: 0 var(--md-sys-space-3) var(--md-sys-space-2); }
+.preview-tabs button { padding: var(--md-sys-space-1) var(--md-sys-space-3); border-radius: var(--md-sys-shape-corner-full); font: var(--md-sys-typescale-label-large); color: var(--md-sys-color-on-surface-variant); }
+.preview-tabs button[aria-selected="true"] { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+.preview-tabs .preview-reset { margin-left: auto; }
+.preview-body { height: 20rem; overflow: auto; border-top: 1px solid var(--md-sys-color-outline-variant); }
+.preview-frame { display: block; width: 100%; height: 100%; border: 0; }
+.preview-source { margin: 0; padding: var(--md-sys-space-3); font: var(--md-sys-typescale-label-large); font-family: var(--md-sys-typescale-mono); background: var(--md-sys-color-surface-container-high); white-space: pre-wrap; overflow-wrap: anywhere; }
+.preview-source span { display: block; }
+.preview-source .add { background: color-mix(in srgb, var(--md-sys-color-success) 28%, transparent); font-weight: 600; }
+.preview-source .del { background: color-mix(in srgb, var(--md-sys-color-error) 28%, transparent); text-decoration: line-through; }
+.preview-source .gap { color: var(--md-sys-color-on-surface-variant); }
+.preview .empty { margin: var(--md-sys-space-3); }
+
+/* wide screens: the Live view gets its own column, full height, between the lesson and the feed */
+.layout[data-preview="column"] { grid-template-columns: var(--nav-width) minmax(0, 1fr) var(--preview-w, 24rem) 360px; }
+.side-preview { position: relative; display: flex; flex-direction: column; min-height: 0; padding: var(--md-sys-space-4); border-radius: var(--md-sys-shape-corner-large); border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface-container-low); }
+.side-preview .preview { flex: 1; min-height: 0; display: flex; flex-direction: column; margin-bottom: 0; }
+.side-preview .preview-body { flex: 1; height: auto; }
+
+
+/* drag bars: the width bar sits on the Live view column's left edge, the height bar under the stacked panel */
+.resize-handle { flex: none; background: transparent; touch-action: none; transition: background var(--md-sys-motion-duration); }
+.resize-handle:hover, .resize-handle:focus-visible, .resize-handle:active { background: var(--md-sys-color-clay); }
+.resize-handle.vertical { position: absolute; inset: 0 auto 0 0; width: var(--md-sys-space-2); cursor: col-resize; border-radius: var(--md-sys-shape-corner-large) 0 0 var(--md-sys-shape-corner-large); }
+.resize-handle.horizontal { height: var(--md-sys-space-2); cursor: row-resize; }
+
+/* the right column: lesson preview stays put while only the live results scroll */
+.side-feed { display: flex; flex-direction: column; overflow: hidden; }
+.side-feed .feed { flex: 1; min-height: 0; overflow-y: auto; }
+
 @media (max-width: 1100px) {
   .layout { grid-template-columns: 240px minmax(0, 1fr); }
-  .side-feed { grid-column: 1 / -1; max-height: 40vh; }
+  .side-feed { grid-column: 1 / -1; max-height: 60vh; }
 }
 @media (max-width: 720px) {
   .app { height: auto; }

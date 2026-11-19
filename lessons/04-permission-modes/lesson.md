@@ -2,6 +2,7 @@
 title: Permission modes
 track: Basics
 summary: Control when Claude asks first, using Shift+Tab modes and allow/deny rules.
+preview: modes-demo.txt
 prompts:
   - "Create modes-demo.txt with three short lines about camping."
   - "Create secret.txt containing the word pineapple."
@@ -139,3 +140,4 @@ That has its own dialog, and you can decline it.
 - If a row is missing, check the terminal for a waiting permission dialog, make sure the
   dev server is running, and confirm you accepted the trust prompt.
 - The `touch` command shows a Bash row in the feed. The refused read shows nothing.
+- The **Live view** shows `modes-demo.txt` only once you approve the dialog. In plan mode it stays empty.

@@ -1,7 +1,9 @@
 import type React from "react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { api } from "./api";
 import { Feed } from "./Feed";
+import { FilePreview } from "./components/FilePreview";
+import { ResizeHandle } from "./components/ResizeHandle";
 import { LessonMarkdown } from "./components/LessonMarkdown";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { TopAppBar } from "./components/TopAppBar";
@@ -10,6 +12,33 @@ import type { CheckResult, HookEvent, Lesson, LessonMeta } from "./types";
 import "./App.css";
 
 const NAV_KEY = "nav-collapsed";
+// the Live view gets its own column only when there is room for four (see .layout[data-preview] in App.css)
+const WIDE_WITH_RAIL = "(min-width: 1650px)";
+const WIDE_WITH_COLLAPSED_RAIL = "(min-width: 1400px)";
+
+function useMedia(query: string): boolean {
+  const mq = typeof window.matchMedia === "function" ? window.matchMedia(query) : null;
+  return useSyncExternalStore(
+    (cb) => {
+      mq?.addEventListener("change", cb);
+      return () => mq?.removeEventListener("change", cb);
+    },
+    () => mq?.matches ?? false,
+  );
+}
+
+// a number kept in localStorage, for sizes the user drags
+function useStoredNumber(key: string, fallback: number): [number, (n: number) => void] {
+  const [value, setValue] = useState(() => Number(localStorage.getItem(key)) || fallback);
+  return [
+    value,
+    (n) => {
+      setValue(n);
+      localStorage.setItem(key, String(n));
+    },
+  ];
+}
+
 const TOGGLE_REACH = 10; // px above the toggle button that also never open the rail
 
 export default function App() {
@@ -26,6 +55,9 @@ export default function App() {
   const [kbFocus, setKbFocus] = useState(false); // keyboard focus inside the rail
   const startedAt = useRef(0); // set in selectLesson
   const { theme, toggle } = useTheme();
+  const [previewWidth, setPreviewWidth] = useStoredNumber("preview-width", 384);
+  const [previewHeight, setPreviewHeight] = useStoredNumber("preview-height", 320);
+  const roomForPreviewColumn = useMedia(navCollapsed ? WIDE_WITH_COLLAPSED_RAIL : WIDE_WITH_RAIL);
 
   // switch lesson and reset the feed and checks (done here, not in an effect, to avoid a cascading render)
   const selectLesson = (id: string | null) => {
@@ -95,6 +127,7 @@ export default function App() {
     localStorage.setItem(NAV_KEY, nextState ? "1" : "0");
   };
 
+  const previewColumn = !!lesson?.preview && roomForPreviewColumn;
   const index = lessons.findIndex((l) => l.id === currentId);
   const next = lessons[index + 1];
   const done = currentId !== null && completed.includes(currentId);
@@ -117,7 +150,8 @@ export default function App() {
   return (
     <div className="app">
     <TopAppBar title="Claude Camp" tagline="Learn Claude Code, one small step at a time" actions={<ThemeToggle theme={theme} onToggle={toggle} />} />
-    <div className="layout" data-nav={navCollapsed ? "collapsed" : "expanded"}>
+    <div className="layout" data-nav={navCollapsed ? "collapsed" : "expanded"} data-preview={previewColumn ? "column" : undefined}
+         style={previewColumn ? ({ "--preview-w": `${previewWidth}px` } as CSSProperties) : undefined}>
       <div className={`sidebar-slot ${navCollapsed ? "collapsed" : ""} ${peek || kbFocus ? "open" : ""}`}>
       <nav
         className="sidebar"
@@ -218,7 +252,15 @@ export default function App() {
         )}
       </main>
 
+      {previewColumn && lesson?.preview && (
+        <aside className="side-preview">
+          <ResizeHandle orientation="vertical" direction={-1} label="Resize live view width" value={previewWidth} min={288} max={900} onChange={setPreviewWidth} />
+          <FilePreview key={lesson.preview} path={lesson.preview} />
+        </aside>
+      )}
+
       <aside className="side-feed">
+        {!previewColumn && lesson?.preview && <FilePreview key={lesson.preview} path={lesson.preview} height={previewHeight} onHeightChange={setPreviewHeight} />}
         <Feed events={events} connected={connected} />
       </aside>
     </div>

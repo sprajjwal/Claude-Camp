@@ -21,5 +21,9 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completed }),
     }).then((r) => json<{ completed: string[] }>(r)),
+  sandboxFile: (path: string) =>
+    fetch(`/api/sandbox-file?path=${encodeURIComponent(path)}`).then((r) =>
+      json<{ content: string | null; modified: number }>(r),
+    ),
   clearEvents: () => fetch("/api/events", { method: "DELETE" }),
 };

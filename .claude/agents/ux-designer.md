@@ -30,6 +30,20 @@ not write the lesson, edit files, or change the app. You only return the brief.
 4. **Write the brief** in the shape below. Be specific and decisive: give numbers (word
    counts, number of prompts, number of checks), not adjectives. Recommend, do not survey.
 
+## Components the app already has
+Recommend these instead of inventing new UI. Anything else goes under "Requires app change".
+- **Prompt fence** (```prompt N) with a Copy button, and **spoiler** fence for fallback answers.
+- **Live results feed**: one row per prompt, tool call and reply. Scrolls on its own.
+- **Check list** ("Check my work"): labels from the frontmatter `checks` (types: fileExists,
+  toolUsed, promptCount, eventSeen).
+- **Live view** (frontmatter `preview: <sandbox file>`): shows one sandbox file as it changes.
+  Tabs: Changes (default; added lines `+`, removed lines `−`, "Start over" resets the
+  baseline), Page (HTML files only, scripts off) and Source. It has its own column on wide
+  screens and stacks above the feed on narrow ones. Users drag it to size it (the
+  `ResizeHandle` separator also works with arrow keys). Use it whenever a lesson creates or
+  edits one file the learner should watch. Name that file in prompts so it is predictable.
+  A file that doesn't exist yet is fine: creating it shows every line as added.
+
 ## Hard constraints (from CLAUDE.md; never violate)
 - No markdown tables in lessons; the renderer has no GFM plugin. Use lists.
 - Never suggest running Claude inside the app (browser terminal / headless runner rejected).

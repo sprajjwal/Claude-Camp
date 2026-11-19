@@ -2,6 +2,7 @@
 title: Choosing a model
 track: Basics
 summary: Switch between Claude models with /model and learn when a faster or smarter one pays off.
+preview: notes-model.js
 prompts:
   - "In two sentences, explain what a closure is in JavaScript."
   - "/model"
@@ -76,3 +77,4 @@ effort slider in the `/model` picker (left and right arrow keys).
   Enter to change the model for this session only.
 - The same prompt can produce noticeably different speed and depth on each model.
 - Switching down for simple tasks saves time and usage.
+- The **Live view** shows `notes-model.js` as Claude writes it. Compare how each model's version looks.

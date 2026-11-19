@@ -7,6 +7,7 @@ export interface LessonMeta {
 
 export interface Lesson extends LessonMeta {
   prompts: string[];
+  preview?: string;
   body: string;
 }
 

@@ -2,6 +2,7 @@
 title: Your first session
 track: Basics
 summary: Start Claude Code, send a prompt, and watch what it does.
+preview: notes.md
 prompts:
   - "What files are in this folder? Read hello.txt and tell me what it says."
   - "Create a file called notes.md containing three bullet points about what you just learned."
@@ -52,3 +53,4 @@ start a new one with `/clear` or exit.
   denying once.
 - The feed shows events from **hooks**: small commands Claude Code runs at set moments.
   You'll build your own in a later lesson.
+- The **Live view** shows `notes.md` the moment Claude creates it, with every line marked as added.

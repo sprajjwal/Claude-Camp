@@ -82,7 +82,7 @@ Update this list whenever a lesson is added or verified. Folder names are `lesso
 - [x] 2. Models (`02-models`): prompts run headless, wording checked against the docs; `/model` picker not driven interactively
 - [x] 3. Built-in tools (`03-built-in-tools`): prompts run headless, wording checked against the docs; permission dialogs not driven interactively
 - [x] 4. Permission modes (`04-permission-modes`): allow/deny rules run headless, mode names and bar text checked against the docs; Shift+Tab not driven interactively
-- [ ] 5. Plan mode in practice
+- [x] 5. Plan mode in practice (`05-plan-mode`): prompts run headless (plan wrote nothing, build used Write, follow-up edited the file); approval dialog wording not driven interactively
 - [ ] 6. Context: `/context`, `/compact`, `/clear`, `@file`
 - [ ] 7. CLAUDE.md and memory
 

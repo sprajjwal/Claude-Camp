@@ -19,6 +19,8 @@ export interface LessonMeta {
 export interface Lesson extends LessonMeta {
   prompts: string[];
   checks: Check[];
+  /** sandbox-relative file shown live beside the lesson (see GET /api/sandbox-file) */
+  preview?: string;
   body: string;
 }
 
@@ -33,6 +35,7 @@ function readLesson(id: string): Lesson | null {
     summary: String(data.summary ?? ""),
     prompts: Array.isArray(data.prompts) ? data.prompts.map(String) : [],
     checks: Array.isArray(data.checks) ? (data.checks as Check[]) : [],
+    preview: typeof data.preview === "string" ? data.preview : undefined,
     body: content.trim(),
   };
 }

@@ -1,9 +1,10 @@
 import fs from "node:fs";
+import path from "node:path";
 import express from "express";
 import { addClient, addEvent, clearEvents, snapshot } from "./events.js";
 import { getLesson, listLessons } from "./lessons.js";
 import { runChecks } from "./checks.js";
-import { PROGRESS_FILE } from "./paths.js";
+import { PROGRESS_FILE, SANDBOX_DIR } from "./paths.js";
 
 const PORT = Number(process.env.PORT ?? 4000);
 const app = express();
@@ -35,6 +36,20 @@ app.post("/api/lessons/:id/check", (req, res) => {
   const since = Number(req.body?.since ?? 0);
   const results = runChecks(lesson.checks, since);
   res.json({ passed: results.every((r) => r.passed), results });
+});
+
+// current contents of one sandbox file, for the lesson's live preview (polled by the app)
+app.get("/api/sandbox-file", (req, res) => {
+  const target = path.resolve(SANDBOX_DIR, String(req.query.path ?? ""));
+  // stay inside the sandbox and out of its .claude settings
+  if (!target.startsWith(SANDBOX_DIR + path.sep) || target.startsWith(path.join(SANDBOX_DIR, ".claude"))) {
+    return res.status(400).json({ error: "Path must be a file inside the sandbox" });
+  }
+  try {
+    res.json({ content: fs.readFileSync(target, "utf8"), modified: fs.statSync(target).mtimeMs });
+  } catch {
+    res.json({ content: null, modified: 0 });
+  }
 });
 
 app.get("/api/progress", (_req, res) => {

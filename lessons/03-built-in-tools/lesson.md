@@ -2,6 +2,7 @@
 title: Built-in tools
 track: Basics
 summary: Watch Claude read, search, edit and run commands, one tool at a time.
+preview: tools-demo.txt
 prompts:
   - "Read hello.txt and tell me what it says."
   - "Find every .txt file in this folder and search them for the word hello."
@@ -95,3 +96,4 @@ reaches the feed, because the feed is driven by hooks that fire after a tool fin
 - If a row is missing, make sure the dev server is running and you accepted the trust
   prompt, then send the prompt again.
 - Claude asks permission before changing things. Lesson 4 covers how to control that.
+- The **Live view** follows `tools-demo.txt`. After the Edit prompt, the **Changes** tab shows the old line struck out and the new one added.
